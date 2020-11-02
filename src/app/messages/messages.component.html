@@ -1,0 +1,11 @@
+<section class="messages container flex-col">
+    <div class="heading flex-row ali-center">
+        <span class="grow"><i class="far fa-envelope"></i><strong>Messages</strong></span>
+    </div>
+    <div class="message-list grow">
+        <div *ngIf="messages.length == 0">
+            You don't have any messages
+        </div>
+    </div>
+    <button>New Message</button>
+</section>

@@ -1,0 +1,62 @@
+<section class="container grow">
+    <div class="flex-col post-form">
+        <label for="body">Create a new Post</label>
+        <input type="file" name="file" id="file" (change)="upload($event)">
+        <div class="progress" style="height: 10px;" [hidden]="!uploadPerc">
+            <progress max="100" [value]="(uploadPerc | async)"></progress>
+        </div>
+        <div [hidden]="image == '//:0'" class="post-image-container">
+            <img [src]="image || '//:0'">
+        </div>
+        <textarea name="body" id="body" cols="30" rows="8" [(ngModel)]="bodyText" maxlength="300"></textarea>
+        <small class="mb-2">Max 300 Characters</small>
+        <button (click)="createNewPost()" [disabled]="!bodyText">POST</button>
+    </div>
+    <div class="post-container">
+        <div class="card" *ngFor="let post of posts | async;">
+            <div class="card-content flex-row between">
+                <div class="user-image">
+                    <img *ngIf="post.userImgUrl" src="{{ post.userImgUrl }}" alt="profile image">
+                    <img *ngIf="!post.userImg" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOMAAADeCAMAAAD4tEcNAAAAflBMVEUAAAD///9qamq2trb7+/vt7e1ZWVmvr6/FxcX19fUICAhgYGBGRka6urqZmZnq6urf39/Z2dmKioowMDA5OTkVFRV4eHji4uKSkpKCgoJAQEDV1dUoKCisrKzBwcHNzc0fHx+hoaFSUlKWlpZ0dHQSEhJlZWVKSkokJCQsLCwQGVgKAAAIbUlEQVR4nO2d6WKiMBCAo4KCeON9glXbvv8LLghurYQjM5NJof1+b7f5CiRhMjOIln6syTGctc/z4NoX/cXnwFuue6cxwy9OEZr//1Vv+SnknGeOq/m3J2h1PC77OX4Ptm8TnQNI0OfotEv8UhbrlbYxJGhytNfVBBMGHT2jSNHiOPVUDO+MLB0DSdDgOD0rG8astVmSO467IMOYkHosKdSOG7BhRP9IPJoEWscjxjCmq2PFpHS0bljFiB7hgFIIHU8EhhEe+dxD5/hGoxgxJRtTApkjbMGQQ3y/EjnaAaGiEBuaUaXQOE5IDSM8kmGlkDjuqBWjLSzFuFIoHIkm1O/MCQaWQuCoRZFSEu841aNIeLuiHce6FOkmHqyjVRbNwEC0hGAdtxoVqTYDSMelVkWibR3OcahZUQiKDTrK0dauSDLvoBz1PowJBCE7jGPIoCgEPjKAcGS4U2O6Jh0p3xiLcMw5OkyK4mrOMeByFCNTjgc2RfQiCXZkVBRrM46clxF7IaGOV1ZH3BMJdNS/Uf2OCUeOXdwzqB0dzJE81ljGlt9xxu0oMDkDMEd2RdTyAXLUFG0sYsHtqDvCIQMR9QA5GlAUb7yO2qLGRSDC5hBHnvf/V+DxAIgjPDsFAzznA+JoRFHMOB3ZNzkJ8CMegGPHjCN8Xw74Sf6NXAJ4OwdwNDPlICYdgGNgyDFkdDSkCD+NVHdkCo9nAQfM1R2N7ORiwLs5dUcDL1YJ4Hi5uiN3uOoLPsfeL3DkjR4/A33zUHc082b150jtaO5ehZ56/M05Mn7D2mFsDwAOsao7GgoDIM48arQnB6dc/b1bSdkbcgwZHdULOGkA5yIBHJXKcAkBV9sDHE0tkFBFiOPKjOKZ09HQxAo/SYY4mpl04OmPEEczbx7wXCuIo5EHElG1A5qtFgYcQ2ZHE6c6iAQdkKOGescy9nBFYA6SziIrOZjMR5gj/3YO0zYJ5qixIFAOfJMDdmSre3iAauQBdGQO6uDKH6C7+bxGXHo4GHHkfcFCKcJrHwJGxdCQI+eFxCkiapHmbIrYqmS4I9uG7hOpiKkNrNgjD83OoKPLo3jBKqJqdXmSA/GV5ag5iyNzDl3FinRkuFuXeEVkDwTt21bMqzGRI2EzMjkk3Xaxewi9jyTBw0jg2PI1KoZ4vxi0o8Z5h2K+icH3etIW97gR6N0h6NmlKWyO72HxgKL3mpZMDzpFmh56Gq4k2Y3aouqFaFOfgJA2fCTqaWkNSBVDmlGlkPUmpaxtPVENKoGuxyxZPqRvk40pgbBX8Jgm5krbezWGtK81xbkk8X0aQ9u7e4rdvdJfxBZ9D3ZUPsScuttzAnkvfQvcaf46pB5LioZvItigZaSvofl6ipZvW9jKk4+fbR6zuVB9dQfrOOltBpKSb+ugMvu0s2Hi8ePnB5se9jstGMdJ+Ih0zCV/78ms2ib23JPUprxsKLoh5rM7YEfn+1MnPQWdjMq2se2OrPjGlUWJlpw5uhHOJTOEgfzRsU6jnLCWfznkXJzcXeEFtkGA5K/mzCj5yZfurjPa3N7nH8Ei8Lfnyyx08p+xSWGvrDVgFlJ2dApSOgh6pbqlC89Z+Z5VdOx9FP7+T2RA1KqU3LRXXEqVHA/lOWQ+IpPGrZy+pbZhUHAcVusNGAATTVZK2yOVjV9lx53C+f9GfTUbvqsYxswrny9XdHQVD8b9UGX+O8ECJe2Kha3VHCFvTP5bpT+0e8yutZWp9lhUcbTBQTcv3BUdddvHGTIDZlAl9lPBERmM+ryMjtOXoVjjU29Gc6xXYYYtdbSIqjn6/rvXjrh1t7SFd+XfwypzNNaBRIGyWbzE0VyhvAol92uxo4nGjhCKT2MLHbkzquEU5psXOLqminIh7Av2A/mO7Ln/SPI3VrmOhio5EeRK5jnWTzG/JCvHsY6KuVdS7li3Z/GBfPcqdXT5a8Zo6EtnV6mjzvwwvfhVHU01raRAltYjcUR9xtk4klParKOpFrJUZIO8Gcd6rhrPZJbJjKOJmnFaMj2hXh25ClN00i52NNd0jJJhkSNT6Y123ALH+rwUF9PNd2zGnRozzHO0TI+MECvHsS4Rqios5Y71X/2fWUkdlU/HfjTvMke27zkycZI41velUY6fdTyaHhM5x4wjb3MKDvxXx6Y9jTHOiyNtfcbPYPDdsQ7HjOpMvzk24bUxS/vZsSnvVK+4T47mesfrJXxyrNNJowr7L8dmzjgx0/+Opr5YpZ/Zf8e6HuGUc304NvdWTW7W2NFUo2oO1qlj096qnvETR2MfAGDBvjvW/aCqmM7dsUnhuCzLu2NgehhaCWLHZj+O8b5cNDIC8IwTOY5MD0Izo8jR1Oc4uLhFjoHhMegmaIkmHVbJsUSzTnJkrISxT3KxcRLmPh/HRU80femIFg9R7+y4KmxEM6PHz7RFU9JV8jkLvvbUppiL4kLxJvAhqhVS15mFaG5s9UHzDX8Lzb+SfVH/3OoyFqKpR49f7EVht5pGsBV1LsqpRlcgOknUhKVo8sFcwvpXxAF+QzynqelHX7ii1fQXj2tLtJo+sV4ix+YUrsgZRo5NPwyw4nNkqsjcwh90vVsbz83rDnyqd4X2/awc90mDj+4m7JwmFVuEKeFOTp1w08VFnCZJfg7wBHKwPND0uS1lfDosgcngXitxVM4IuHpvDo/dN1PnzVNe6OzUUSlDpztyqHvdq2A7ef1cpdyLzJMc3Wob8/lmyH/1ZKyGm2qh76QlbJozX5psfSvuhsePtQtL55Ew+aeP+o5d/uz1Pvshly/LeDjLn4v2j16MXzVlQ0nU433WwTSU5mHSmUnKGrdf5brPdaz2cO3NF33RD7bectTZ6VjzdGHvOqOltw2i0S/m3nr4PC/+A5ZNhBL5443lAAAAAElFTkSuQmCC" alt="">
+                </div>
+                <div class="card-heading flex-col grow">
+                    <div class="user-info">
+                        <strong>{{ post.userName }}</strong>
+                    </div>
+                    <div class="card-body">
+                        <span>{{ post.body }}</span>
+                    </div>
+                    <div class="post-image">
+                        <img *ngIf="post.postImg != '//:0'" src="{{ post.postImg }}" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="controls flex-row evenly">
+                <div class="comments">
+                    <i class="far fa-comment"></i>
+                    <ng-container  *ngIf="post.comments">
+                        {{ post.comments.length }}
+                    </ng-container>
+                </div>
+                <div class="repost">
+                    <i class="fas fa-retweet"></i>
+                    <ng-container *ngIf="post.shares">
+                        {{ post.shares.length }}
+                    </ng-container>
+                </div>
+                <div class="likes">
+                    <i class="far fa-heart"></i>
+                    <ng-container *ngIf="post.likes">
+                        {{ post.likes.length }}
+                    </ng-container>
+                </div>
+                <div class="share">
+                    <i class="far fa-share-square"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-popup" *ngIf="postPopup">
+        <textarea name="body" id="body" cols="30" rows="10"></textarea>
+    </div>
+</section>

@@ -1,0 +1,59 @@
+section {
+    /* margin-left: 20px; */
+    position: fixed;
+    height: 90vh;
+    width: 35%;
+    max-width: 350px;
+}
+
+.friends {
+    margin-top: 30px;
+    height: 80%;
+}
+
+button {
+    border: none;
+    background-color: #1DA1F2;
+    border-radius: 1.5em;
+    color: #fff;
+    padding: 15px 0px;
+    width: 50%;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 28px;
+}
+
+.fa-user-friends {
+    margin-right: 10px;
+}
+
+.friends-list-items {
+    margin: 4px;
+    /* background-color: rgba(0, 0, 0, 0.40); */
+}
+
+.post-btn {
+    background-color: #1DA1F2;
+    border-radius: 1.5em;
+    text-align: center;
+    padding: 15px 0px;
+    width: 80%;
+    margin: 0px auto;
+}
+
+.post-btn:hover {
+    cursor: pointer;
+}
+
+@media only screen and (min-width: 1366px) {
+    section {
+        width: 20%;
+    }
+}

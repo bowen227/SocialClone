@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "social-clone-808e6": {
+      "hosting": {
+        "Social-Clone": [
+          "social-clone-808e6"
+        ]
+      }
+    }
+  }
+}

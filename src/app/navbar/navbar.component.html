@@ -1,0 +1,22 @@
+<section class="container ali-center">
+    <div class="links flex-row ali-center between">
+        <button *ngIf="this.auth.user == null" class="btn" (click)="signIn()">Login With Google</button>
+        <ng-container *ngIf="user != null">
+            <div class="flex-row evenly ali-center nav-content" (click)="openMenu()">
+                <div class="profile-img">
+                    <img src="{{ user.photoURL }}" alt="">
+                </div>
+                <div class="flex-col user-info">
+                    <p>{{ user.displayName }}</p>
+                    <p>{{ user.email }}</p>
+                </div>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </ng-container>
+    </div>
+    <div class="drop-down" *ngIf="showMore">
+        <!-- <button *ngIf="this.auth.user != null" class="btn" (click)="signOut()">Sign Out</button> -->
+        <p *ngIf="this.auth.user != null" (click)="signOut()" (click)="openMenu()">Sign Out</p>
+        <hr>
+    </div>
+</section>

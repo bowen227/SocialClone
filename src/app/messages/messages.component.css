@@ -1,0 +1,52 @@
+section {
+    height: 90vh;
+    width: 20%;
+    max-width: 350px;
+}
+
+.heading {
+    padding: 20px 0px;
+    width: 100%;
+    font-size: 28px;
+}
+
+.fa-envelope {
+    margin-right: 10px;
+}
+
+.fa-plus-circle {
+    color: #1DA1F2;
+}
+
+.fa-plus-circle:hover {
+    cursor: pointer;
+    color: #fff;
+}
+
+button {
+    border: none;
+    background-color: #1DA1F2;
+    border-radius: 1.5em;
+    color: #fff;
+    padding: 15px 0px;
+    width: 50%;
+    margin: 0px auto;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+@media only screen and (min-width: 1366px) {
+    section {
+        width: 350px;
+    }
+
+    .heading {
+        width: 100%;
+    }
+
+    .message-list {
+        width: 100%;
+    }
+}

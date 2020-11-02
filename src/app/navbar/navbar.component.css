@@ -1,0 +1,59 @@
+section {
+    color: #fff;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.links {
+    text-align: left;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.links:hover {
+    cursor: pointer;
+}
+
+.nav-content {
+    width: 100%;
+}
+
+.btn {
+    margin: 0px 10px;
+}
+
+.profile-img {
+    border-radius: 50%;
+    height: 50px;
+    overflow: hidden;
+    margin-right: 10px;
+}
+
+.profile-img img {
+    height: 100%;
+}
+
+.user-info p {
+    margin: 0px;
+    padding: 0px;
+}
+
+.fa-chevron-down {
+    margin-left: 10px;
+    font-size: 18px;
+}
+
+.drop-down {
+    position: fixed;
+    height: 50px;
+    width: 200px;
+    top: 120px;
+    left: 100px;
+    padding: .5em;
+    background-color: black;
+}
+
+hr {
+    border: 1px solid #fff;
+    background-color: #fff;
+}
