@@ -71,19 +71,22 @@ export class PostsComponent implements OnInit {
 
   // IMAGE UPLOAD
   public upload(event) {
-    const file = event.target.files[0]
-    const path = `posts/${file.name}`
-    if (file.type.split('/')[0] == 'audio') {
-      this.image = null
-    } else {
-      const task = this.storage.upload(path, file)
-      this.uploadPerc = task.percentageChanges()
-
-      task.snapshotChanges().subscribe(() => {
-        this.dloadURL = this.storage.ref(path).getDownloadURL()
-        this.dloadURL.subscribe(url => this.image = url)
-      })
+    if (event.target) {
+      const file = event.target.files[0]
+      const path = `posts/${file.name}`
+      if (file.type.split('/')[0] == 'audio') {
+        this.image = null
+      } else {
+        const task = this.storage.upload(path, file)
+        this.uploadPerc = task.percentageChanges()
+  
+        task.snapshotChanges().subscribe(() => {
+          this.dloadURL = this.storage.ref(path).getDownloadURL()
+          this.dloadURL.subscribe(url => this.image = url)
+        })
+      }
     }
+    
   }
 
   // LIKE POST
@@ -121,10 +124,19 @@ export class PostsComponent implements OnInit {
   // SHARE POST
   public sharePost(id: string, index: number) {
     const div = document.getElementById(index.toString())
+    const style = div.style
+    window.scrollTo(0, document.body.scrollTop)
+    style.padding = '10px'
+    style.backgroundColor = '#202024'
     html2canvas(div, { allowTaint: true }).then((canvas) => {
-      document.getElementById('sharedImg').appendChild(canvas)
+      const container = document.getElementById('sharedImg')
+      container.style.backgroundColor = '#202024'
+      container.appendChild(canvas)
+      
       console.log(canvas)
     })
+    style.padding = '0px'
+    style.backgroundColor = 'transparent'
   }
 
 }

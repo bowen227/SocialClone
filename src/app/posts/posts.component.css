@@ -123,6 +123,14 @@ button:hover {
     margin-bottom: 10px;
 }
 
+.comment-text {
+    margin-left: 40px;
+    border: 1px solid;
+    padding: 10px;
+    border-radius: 1em;
+    background-color: #21262b;
+}
+
 .img-container img {
     width: 30px;
     border-radius: 1em;
