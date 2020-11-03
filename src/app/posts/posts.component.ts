@@ -118,5 +118,30 @@ export class PostsComponent implements OnInit {
   }
 
   // SHARE POST
+  public sharePost(id: string, index: number) {
+    // const post = this.postService.getPost(id)
+    // post.snapshotChanges().subscribe(p => {
+    //   const o = p.payload.data()
+    //   const sPost = {
+    //     userId: o.userId,
+    //     userName: o.userName,
+    //     userEmail: o.userEmail,
+    //     userImgUrl: o.userImgUrl,
+    //     body: o.body,
+    //     postImg: o.postImg,
+    //     likes: o.likes.length,
+    //     comments: o.comments.length,
+    //     rePost: o.rePost.length,
+    //   }
+    //   console.log(sPost as Post)
+    // })
+    const data = document.getElementById(index.toString())
+    const cData = data.cloneNode(true)
+    const canvasContainer = document.getElementById('sharedImg')
+    const canvas = document.createElement('canvas')
+    canvasContainer.appendChild(canvas)
+    const ctx = canvas.getContext('2d')
+    ctx.fillText(cData.toString(),10,50)
+  }
 
 }

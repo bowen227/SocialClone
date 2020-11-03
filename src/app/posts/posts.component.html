@@ -5,6 +5,9 @@
         <div class="progress" style="height: 10px;" [hidden]="!uploadPerc">
             <progress max="100" [value]="(uploadPerc | async)"></progress>
         </div>
+        <div id="sharedImg">
+
+        </div>
         <div [hidden]="image == '//:0'" class="post-image-container">
             <img [src]="image || '//:0'">
         </div>
@@ -13,7 +16,7 @@
         <button (click)="createNewPost()" [disabled]="!bodyText">POST</button>
     </div>
     <div class="post-container">
-        <div class="card" *ngFor="let post of posts | async; let i = index">
+        <div class="card" *ngFor="let post of posts | async; let i = index" [id]="i">
             <div class="card-content flex-row between">
                 <div class="user-image">
                     <img *ngIf="post.userImgUrl" src="{{ post.userImgUrl }}" alt="profile image">
@@ -39,7 +42,7 @@
                     </ng-container>
                 </div>
                 <div class="repost">
-                    <i class="fas fa-retweet"></i>
+                    <i class="fas fa-retweet" (click)="sharePost(post.id, i)"></i>
                     <ng-container *ngIf="post.shares">
                         {{ post.shares.length }}
                     </ng-container>
