@@ -16,9 +16,11 @@ export class PostsComponent implements OnInit {
   userId;
   posts: Observable<Post[]>
   postPopup: boolean = false
-  // postForm: FormGroup
   bodyText: string
   image: string = '//:0'
+  // showComments: boolean = false;
+  index = null;
+  newComment: string;
   public uploadPerc: Observable<number>;
   public dloadURL: Observable<string>;
 
@@ -82,5 +84,39 @@ export class PostsComponent implements OnInit {
       })
     }
   }
+
+  // LIKE POST
+  public likePost(id: string) {
+    this.postService.likePost(id, this.userId)
+  }
+
+  // UNLIKE POST
+  public unlikePost(id: string) {
+    this.postService.removeLike(id, this.userId)
+  }
+
+  // SHOW COMMENTS
+  public showComment(index: number) {
+    if (this.index == null) {
+      this.index = index
+    } else {
+      this.index = null
+    }
+  }
+
+  // SAVE COMMENT
+  public saveComment(id: string) {
+    const data = {
+      userName: this.user.displayName,
+      userId: this.userId,
+      imgUrl: this.user.photoURL,
+      comment: this.newComment,
+      date: new Date()
+    }
+    this.postService.addComment(id, data)
+    this.newComment = ''
+  }
+
+  // SHARE POST
 
 }

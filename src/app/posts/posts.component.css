@@ -105,3 +105,26 @@ button:hover {
     cursor: pointer;
     background-color: #14171a;
 }
+
+.comment-section {
+    padding: 10px;
+}
+
+.comment-form {
+    width: 100%;
+}
+
+#newComment {
+    background-color: #14171a3f;
+    color: #fff;
+}
+
+.comment {
+    margin-bottom: 10px;
+}
+
+.img-container img {
+    width: 30px;
+    border-radius: 1em;
+    margin-right: 10px;
+}

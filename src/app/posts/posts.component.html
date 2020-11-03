@@ -13,7 +13,7 @@
         <button (click)="createNewPost()" [disabled]="!bodyText">POST</button>
     </div>
     <div class="post-container">
-        <div class="card" *ngFor="let post of posts | async;">
+        <div class="card" *ngFor="let post of posts | async; let i = index">
             <div class="card-content flex-row between">
                 <div class="user-image">
                     <img *ngIf="post.userImgUrl" src="{{ post.userImgUrl }}" alt="profile image">
@@ -33,7 +33,7 @@
             </div>
             <div class="controls flex-row evenly">
                 <div class="comments">
-                    <i class="far fa-comment"></i>
+                    <i class="far fa-comment" (click)="showComment(i)"></i>
                     <ng-container  *ngIf="post.comments">
                         {{ post.comments.length }}
                     </ng-container>
@@ -45,18 +45,38 @@
                     </ng-container>
                 </div>
                 <div class="likes">
-                    <i class="far fa-heart"></i>
+                    <i class="far fa-heart" (click)="likePost(post.id)"></i>
                     <ng-container *ngIf="post.likes">
                         {{ post.likes.length }}
                     </ng-container>
                 </div>
-                <div class="share">
+                <!-- <div class="share">
                     <i class="far fa-share-square"></i>
+                </div> -->
+            </div>
+            <div class="comment-section" [hidden]="index != i">
+                <div class="comment-form flex-col">
+                    <label for="newComment">Add a comment</label>
+                    <textarea name="newComment" id="newComment" cols="30" rows="6" [(ngModel)]="newComment" maxlength="200"></textarea>
+                    <small>Max 200 characters</small>
+                    <button class="btn" (click)="saveComment(post.id)" [disabled]="!newComment">Save</button>
+                </div>
+                <p *ngIf="post.comments.length == 0">Leave the first comment</p>
+                <div class="comments-list" *ngIf="post.comments.length > 0">
+                    <div class="comment" *ngFor="let c of post.comments">
+                        <div class="flex-row">
+                            <div class="img-container">
+                                <img src="{{ c.imgUrl }}" alt="">
+                            </div>
+                            <div class="grow">
+                                <span>{{ c.userName }}</span><br>
+                                <span>{{ c.date.toDate() | date }}</span>
+                            </div>
+                        </div>
+                        <p>{{ c.comment }}</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="post-popup" *ngIf="postPopup">
-        <textarea name="body" id="body" cols="30" rows="10"></textarea>
     </div>
 </section>
