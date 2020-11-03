@@ -5,6 +5,7 @@ import { Post } from '../models/post';
 import { AuthService } from '../shared/auth.service';
 import { PostService } from '../shared/post.service';
 import { AngularFireStorage } from '@angular/fire/storage';
+import html2canvas from 'html2canvas'
 
 @Component({
   selector: 'app-posts',
@@ -119,29 +120,11 @@ export class PostsComponent implements OnInit {
 
   // SHARE POST
   public sharePost(id: string, index: number) {
-    // const post = this.postService.getPost(id)
-    // post.snapshotChanges().subscribe(p => {
-    //   const o = p.payload.data()
-    //   const sPost = {
-    //     userId: o.userId,
-    //     userName: o.userName,
-    //     userEmail: o.userEmail,
-    //     userImgUrl: o.userImgUrl,
-    //     body: o.body,
-    //     postImg: o.postImg,
-    //     likes: o.likes.length,
-    //     comments: o.comments.length,
-    //     rePost: o.rePost.length,
-    //   }
-    //   console.log(sPost as Post)
-    // })
-    const data = document.getElementById(index.toString())
-    const cData = data.cloneNode(true)
-    const canvasContainer = document.getElementById('sharedImg')
-    const canvas = document.createElement('canvas')
-    canvasContainer.appendChild(canvas)
-    const ctx = canvas.getContext('2d')
-    ctx.fillText(cData.toString(),10,50)
+    const div = document.getElementById(index.toString())
+    html2canvas(div, { allowTaint: true }).then((canvas) => {
+      document.getElementById('sharedImg').appendChild(canvas)
+      console.log(canvas)
+    })
   }
 
 }
