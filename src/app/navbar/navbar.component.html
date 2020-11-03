@@ -10,13 +10,13 @@
                     <p>{{ user.displayName }}</p>
                     <p>{{ user.email }}</p>
                 </div>
-                <i class="fas fa-chevron-down"></i>
+                <i class="fas fa-chevron-down" *ngIf="!showMore"></i>
+                <i class="fas fa-chevron-up" *ngIf="showMore"></i>
             </div>
         </ng-container>
     </div>
     <div class="drop-down" *ngIf="showMore">
         <!-- <button *ngIf="this.auth.user != null" class="btn" (click)="signOut()">Sign Out</button> -->
-        <p *ngIf="this.auth.user != null" (click)="signOut()" (click)="openMenu()">Sign Out</p>
-        <hr>
+        <p class="sign-out-btn" *ngIf="this.auth.user != null" (click)="signOut()" (click)="openMenu()">Sign Out</p>
     </div>
 </section>
