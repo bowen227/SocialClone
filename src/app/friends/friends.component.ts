@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from '../shared/auth.service';
-import { PostService } from '../shared/post.service';
+import { FriendService } from '../shared/friend.service';
+import { map } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-friends',
@@ -14,24 +16,19 @@ export class FriendsComponent implements OnInit {
   userId
 
   constructor(public auth: AuthService,
-              private postService: PostService) { }
+              private fService: FriendService) { }
 
   ngOnInit(): void {
     this.auth.auth.authState.subscribe(u => {
-      if ( u !== null) {
-        this.user = u
-        this.userId = u.uid
-        // this.friends = this.postService.getFriends(u.uid)
-        console.log(this.friends)
-      } else {
-        this.user = null
-      }
+      this.user = u
+      this.userId = u.uid
+      this.friends = this.fService.getFriendsList(u.uid)
     })
   }
 
   // ADD NEW FRIEND
   public addFriend() {
-
+    console.log("Add Friend")
   }
 
 }

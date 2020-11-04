@@ -36,7 +36,7 @@ export class PostService {
 
    public getData(id: string) {
      this.post = this.afs.doc<Post>(`posts/${id}`)
-     return this.post.valueChanges();
+     return this.post.valueChanges()
    }
 
    public createPost(data) {
@@ -48,7 +48,7 @@ export class PostService {
    }
 
    public updatePost(id: string, data) {
-     return this.getPost(id).update(data);
+     return this.getPost(id).update(data)
    }
 
    public likePost(id: string, user: string) {
