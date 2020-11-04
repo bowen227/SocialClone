@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-// import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Post } from '../models/post';
 import { AuthService } from '../shared/auth.service';
@@ -14,12 +13,11 @@ import html2canvas from 'html2canvas'
 })
 export class PostsComponent implements OnInit {
   user: any
-  userId;
+  userId
   posts: Observable<Post[]>
   postPopup: boolean = false
   bodyText: string
   image: string = '//:0'
-  // showComments: boolean = false;
   index = null;
   newComment: string;
   public uploadPerc: Observable<number>;
@@ -42,11 +40,6 @@ export class PostsComponent implements OnInit {
       }
     })
   }
-
-  // INITIALIZE POSTFORM
-  // public initPostForm() {
-  //   return this.postForm = this.fb.group({ body: '' })
-  // }
 
   // CREATE NEW POST
   public createNewPost() {

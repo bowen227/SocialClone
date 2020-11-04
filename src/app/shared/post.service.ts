@@ -9,15 +9,15 @@ import { Post } from '../models/post';
   providedIn: 'root'
 })
 export class PostService {
-  postCollection: AngularFirestoreCollection;
-  post: AngularFirestoreDocument<Post>;
-  authState: any = null;
+  postCollection: AngularFirestoreCollection
+  post: AngularFirestoreDocument<Post>
+  authState: any = null
 
   constructor(private afs: AngularFirestore, public auth: AngularFireAuth) {
     this.postCollection = this.afs.collection('posts', ref => 
     ref.orderBy('postDate', 'desc'))
 
-    this.auth.authState.subscribe(data => this.authState = data);
+    this.auth.authState.subscribe(data => this.authState = data)
    }
 
    public getPosts() {
@@ -62,4 +62,5 @@ export class PostService {
    public addComment(id: string, data) {
      return this.getPost(id).update({comments: firebase.default.firestore.FieldValue.arrayUnion(data)})
    }
+
 }
