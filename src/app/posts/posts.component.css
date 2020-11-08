@@ -147,3 +147,7 @@ button:hover {
     border-radius: 1em;
     margin-right: 10px;
 }
+
+.end-posts {
+    padding: 50px 10px;
+}

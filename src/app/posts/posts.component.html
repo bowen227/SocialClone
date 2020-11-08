@@ -80,9 +80,12 @@
                     <label for="newComment">Add a comment</label>
                     <textarea name="newComment" id="newComment" cols="30" rows="6" [(ngModel)]="newComment" maxlength="200"></textarea>
                     <small>Max 200 characters</small>
-                    <button class="btn" (click)="saveComment(post.id)" [disabled]="!newComment">Save</button>
+                    <button class="post-btn" (click)="saveComment(post.id)" [disabled]="!newComment">Save</button>
                 </div>
             </div>
+        </div>
+        <div class="end-posts">
+            <span>This is the end of all the posts</span>
         </div>
     </div>
 </section>
