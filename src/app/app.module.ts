@@ -9,7 +9,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 
 // FIREBASE IMPORTS
 import { AngularFireModule } from '@angular/fire';
-import { firebaseConfig } from 'src/environments/environment';
+import { firebaseConfig } from '../environments/environment';
 import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { PostsComponent } from './posts/posts.component';
