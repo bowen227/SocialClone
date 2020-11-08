@@ -39,6 +39,11 @@ a {
     /* background-color: rgba(0, 0, 0, 0.40); */
 }
 
+.friends-list-items ul {
+    list-style: none;
+    padding: 0px;
+}
+
 .post-btn {
     background-color: #1DA1F2;
     border-radius: 1.5em;

@@ -28,7 +28,7 @@ export class FriendsComponent implements OnInit {
 
   // ADD NEW FRIEND
   public addFriend() {
-    console.log("Add Friend")
+    this.auth.getUserByEmail(this.user.email)
   }
 
 }

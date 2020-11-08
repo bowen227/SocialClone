@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import * as firebase from 'firebase/app';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators'
 
@@ -7,7 +8,7 @@ import { map } from 'rxjs/operators'
 })
 export class FriendService {
   friendCollection: AngularFirestoreCollection
-  friendList: AngularFirestoreDocument<any>
+  // friendList: AngularFirestoreDocument<any>
 
   constructor(private afs: AngularFirestore) { 
     this.friendCollection = this.afs.collection('friends', ref => ref)
@@ -19,8 +20,8 @@ export class FriendService {
         if (a.payload.doc.id === id) {
           console.log("They matched!!!")
           const data = a.payload.doc.data()
-          const id = a.payload.doc.id
-          return { id, ...data }
+          // const id = a.payload.doc.id
+          return { ...data }
         } else {
           return null
         }
@@ -29,12 +30,11 @@ export class FriendService {
   }
 
   public getFriendDoc(id: string) {
-    return this.friendList = this.afs.doc<any>(`friendsList/${id}`)
+    return this.afs.doc<any>(`friendsList/${id}`)
   }
 
-  // public getFriendsList(id: string) {
-  //   this.friendList = this.afs.doc<any>(`friendsList/${id}`)
-  //   return this.friendList.valueChanges()
-  // }
+  public addFriend(id: string, data) {
+    return this.getFriendDoc(id).update({friendsList: firebase.default.firestore.FieldValue.arrayUnion(data)})
+  }
 
 }

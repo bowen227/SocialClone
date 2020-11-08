@@ -1,3 +1,4 @@
+import { animation } from '@angular/animations';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth'
 import * as firebase from 'firebase'
@@ -24,5 +25,11 @@ export class AuthService {
     this.auth.signOut().then(() => {
       console.log("Signed Out")
     })
+  }
+
+  getUserByEmail(email: string) {
+    // NEED TO SEARCH AUTH USERS BY EMAIL
+    // IF EXISTS ADD USER DETAILS TO FRIENDS ARRAY FOR CURRENT USER
+    console.log(email)
   }
 }

@@ -12,8 +12,12 @@
                 You haven't added any friends
             </div>
             <ng-container *ngIf="friends != null">
-                <div class="friends-list-items flex-col" *ngFor="let f of friends | async">
-                    <p>{{ f[0] }}</p>
+                <div class="friends-list-items flex-col">
+                    <ul *ngFor="let friend of friends | async">
+                        <li *ngFor="let f of friend.friendsList">
+                            {{ f.friendName }}
+                        </li>
+                    </ul>
                 </div>
             </ng-container>
         </div>
