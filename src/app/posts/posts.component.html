@@ -1,5 +1,6 @@
 <section class="container grow">
-    <div class="flex-col post-form">
+    <button class="add-post-btn" (click)="showForm()"><i class="fas fa-plus-circle"></i></button>
+    <div class="flex-col post-form" *ngIf="showPostForm">
         <label for="body">Create a new Post</label>
         <input type="file" name="file" id="file" (change)="upload($event)">
         <div class="progress" style="height: 10px;" [hidden]="!uploadPerc">
@@ -13,7 +14,7 @@
         </div>
         <textarea name="body" id="body" cols="30" rows="8" [(ngModel)]="bodyText" maxlength="300"></textarea>
         <small class="mb-2">Max 300 Characters</small>
-        <button (click)="createNewPost()" [disabled]="!bodyText">POST</button>
+        <button class="post-btn" (click)="createNewPost()" [disabled]="!bodyText">POST</button>
     </div>
     <div class="post-container">
         <div class="card" *ngFor="let post of posts | async; let i = index">

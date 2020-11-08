@@ -15,7 +15,7 @@ export class PostsComponent implements OnInit {
   user: any
   userId
   posts: Observable<Post[]>
-  postPopup: boolean = false
+  showPostForm: boolean = false
   bodyText: string
   image: string = '//:0'
   index = null;
@@ -39,6 +39,10 @@ export class PostsComponent implements OnInit {
         this.user = null
       }
     })
+  }
+
+  public showForm() {
+    this.showPostForm = !this.showPostForm
   }
 
   // CREATE NEW POST

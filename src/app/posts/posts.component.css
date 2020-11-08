@@ -5,7 +5,11 @@
     margin-bottom: 150px;
 }
 
-button {
+.add-post-btn i {
+    font-size: 26px;
+}
+
+.post-btn {
     border: none;
     background-color: #1DA1F2;
     border-radius: 1.5em;
@@ -14,6 +18,13 @@ button {
     width: 12%;
     margin: 0px auto;
     margin-bottom: 20px;
+}
+
+.add-post-btn {
+    padding: 5px;
+    color: #1DA1F2;
+    background-color: #202024;
+    border: none;
 }
 
 button:hover {
