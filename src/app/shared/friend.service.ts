@@ -11,19 +11,18 @@ export class FriendService {
   // friendList: AngularFirestoreDocument<any>
 
   constructor(private afs: AngularFirestore) { 
-    this.friendCollection = this.afs.collection('friends', ref => ref)
+    this.friendCollection = this.afs.collection('users', ref => ref)
   }
 
   public getFriendsList(id: string) {
     return this.friendCollection.snapshotChanges().pipe(map(actions => {
       return actions.map(a => {
-        if (a.payload.doc.id === id) {
-          console.log("They matched!!!")
+        if (a.payload.doc.id == id) {
+          console.log("Found user doc")
           const data = a.payload.doc.data()
-          // const id = a.payload.doc.id
           return { ...data }
         } else {
-          return null
+          return
         }
       })
     }))

@@ -12,18 +12,25 @@ import { map } from 'rxjs/operators';
 })
 export class FriendsComponent implements OnInit {
   friends: Observable<any[]>
+  friendList: Array<any>
   user: any
   userId
 
   constructor(public auth: AuthService,
-              private fService: FriendService) { }
+              private fService: FriendService) {
+                this.auth.auth.authState.subscribe(u => {
+                  this.user = u
+                  this.userId = u.uid
+                  console.log(u.uid)
+                  console.log(u.displayName)
+                  console.log(u.email)
+                  console.log(u.photoURL)
+                  this.friends = this.fService.getFriendsList(u.uid)
+                })
+               }
 
   ngOnInit(): void {
-    this.auth.auth.authState.subscribe(u => {
-      this.user = u
-      this.userId = u.uid
-      this.friends = this.fService.getFriendsList(u.uid)
-    })
+    
   }
 
   // ADD NEW FRIEND

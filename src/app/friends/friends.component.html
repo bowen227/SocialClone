@@ -11,11 +11,11 @@
             <div *ngIf="friends == null">
                 You haven't added any friends
             </div>
-            <ng-container *ngIf="friends != null">
+            <ng-container *ngIf="friends != null && user">
                 <div class="friends-list-items flex-col">
                     <ul *ngFor="let friend of friends | async">
                         <li *ngFor="let f of friend.friendsList">
-                            {{ f.friendName }}
+                            {{ f.name }}
                         </li>
                     </ul>
                 </div>
