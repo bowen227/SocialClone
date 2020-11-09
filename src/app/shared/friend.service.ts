@@ -11,14 +11,14 @@ import { UserInfo } from '../models/user-info';
   providedIn: 'root'
 })
 export class FriendService {
-  friendCollection: AngularFirestoreCollection
+  userCollection: AngularFirestoreCollection
 
   constructor(private afs: AngularFirestore, private auth: AuthService) { 
-    this.friendCollection = this.afs.collection('users', ref => ref)
+    this.userCollection = this.afs.collection('users', ref => ref)
   }
 
   public getFriendsList(id: string) {
-    return this.friendCollection.snapshotChanges().pipe(map(actions => {
+    return this.userCollection.snapshotChanges().pipe(map(actions => {
       return actions.map(a => {
         if (a.payload.doc.id == id) {
           // console.log("Found user doc")
@@ -31,23 +31,9 @@ export class FriendService {
     }))
   }
 
-  public getUserInfoDoc(email: string) {
-    console.log('getting documents')
-    this.friendCollection.snapshotChanges().pipe(map(actions => {
-      actions.map(a => {
-        if (a.payload.doc.data().FieldValue('email') == email) {
-          console.log(email)
-        }
-      })
-    }))
-  }
-
-  public addFriend(id: string, data) {
-    // if (this.getUserInfoDoc(id) != null) {
-    //   return this.getUserInfoDoc(id).update({friendsList: firebase.default.firestore.FieldValue.arrayUnion(data)})
-    // } else {
-    //   return ok('Not Found')
-    // }
+  public addFriend(email: string) {
+    const usersRef = this.afs.collection('users', ref => ref.where('email', '==', 'testperson@email.com'))
+    console.log(usersRef.ref.get())
   }
 
 }
