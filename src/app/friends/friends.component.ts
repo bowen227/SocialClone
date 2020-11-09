@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { AuthService } from '../shared/auth.service';
 import { FriendService } from '../shared/friend.service';
 import { map } from 'rxjs/operators';
+import { Friend } from '../models/friend';
 
 
 @Component({
@@ -11,8 +12,7 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./friends.component.css']
 })
 export class FriendsComponent implements OnInit {
-  friends: Observable<any[]>
-  friendList: Array<any>
+  userInfo: Observable<any[]>
   user: any
   userId
 
@@ -22,11 +22,8 @@ export class FriendsComponent implements OnInit {
                   this.user = u
                   if (u != null) {
                     this.userId = u.uid
-                    console.log(u.uid)  
-                    // console.log(u.displayName)
-                    // console.log(u.email)
-                    // console.log(u.photoURL)
-                    // this.friends = this.fService.getFriendsList(u.uid)
+                    // console.log(u.uid)
+                    this.userInfo = this.fService.getFriendsList(u.uid)
                   }
                 })
                }
@@ -37,7 +34,7 @@ export class FriendsComponent implements OnInit {
 
   // ADD NEW FRIEND
   public addFriend() {
-    console.log('clicked')
+    console.log(this.user.email)
   }
 
 }

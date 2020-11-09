@@ -4,6 +4,8 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { map } from 'rxjs/operators'
 import { ok } from 'assert';
 import { AuthService } from './auth.service';
+import { Friend } from '../models/friend';
+import { UserInfo } from '../models/user-info';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +21,7 @@ export class FriendService {
     return this.friendCollection.snapshotChanges().pipe(map(actions => {
       return actions.map(a => {
         if (a.payload.doc.id == id) {
-          console.log("Found user doc")
+          // console.log("Found user doc")
           const data = a.payload.doc.data()
           return { ...data }
         } else {
@@ -29,16 +31,23 @@ export class FriendService {
     }))
   }
 
-  public getUserInfoDoc(id: string) {
-    return this.afs.doc<any>(`users/${id}`)
+  public getUserInfoDoc(email: string) {
+    console.log('getting documents')
+    this.friendCollection.snapshotChanges().pipe(map(actions => {
+      actions.map(a => {
+        if (a.payload.doc.data().FieldValue('email') == email) {
+          console.log(email)
+        }
+      })
+    }))
   }
 
   public addFriend(id: string, data) {
-    if (this.getUserInfoDoc(id) != null) {
-      return this.getUserInfoDoc(id).update({friendsList: firebase.default.firestore.FieldValue.arrayUnion(data)})
-    } else {
-      return ok('Not Found')
-    }
+    // if (this.getUserInfoDoc(id) != null) {
+    //   return this.getUserInfoDoc(id).update({friendsList: firebase.default.firestore.FieldValue.arrayUnion(data)})
+    // } else {
+    //   return ok('Not Found')
+    // }
   }
 
 }

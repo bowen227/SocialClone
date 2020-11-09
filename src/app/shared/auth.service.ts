@@ -22,7 +22,7 @@ export class AuthService {
       }
     }).then(
       () => {
-        console.log('Getting friends')
+        // console.log('Getting friends')
         this.friendCollection = this.afs.collection('users', ref => ref)
       }).catch(
       (error) => {
@@ -51,18 +51,18 @@ export class AuthService {
   }
 
   createUserProfile() {
-    console.log('create profile')
+    // console.log('create profile')
     const userRef = this.getUserInfoDoc()
     console.log(userRef)
     if (userRef == null) {
-      console.log('Adding user to DB')
+      // console.log('Adding user to DB')
       const data = {
         userName: this.user.displayName,
         email: this.user.email,
         photoUrl: this.user.photoURL,
         friends: []
       }
-      console.log(data)
+      // console.log(data)
       this.afs.collection('users').doc(this.userId).set(data)
     } else {
       console.log('User already in DB')

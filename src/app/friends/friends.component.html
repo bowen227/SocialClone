@@ -8,19 +8,21 @@
             <strong>Friends</strong>
         </a>
         <div class="grow">
-            <div *ngIf="friends == null">
+            <div *ngIf="userInfo == null">
                 You haven't added any friends
             </div>
-            <ng-container *ngIf="friends != null && user">
+            <ng-container *ngIf="userInfo != null && user">
                 <div class="friends-list-items flex-col">
-                    <ul *ngFor="let friend of friends | async">
-                        <li *ngFor="let f of friend.friendsList">
-                            {{ f.name }}
+                    <ul *ngFor="let friends of userInfo | async">
+                        <li *ngIf="friends">
+                            <ng-container *ngFor="let f of friends.friends">
+                                {{ f.userName }}
+                            </ng-container>
                         </li>
                     </ul>
                 </div>
             </ng-container>
         </div>
-        <button>Add Freind</button>
+        <button (click)="addFriend()">Add Freind</button>
     </div>
 </section>
