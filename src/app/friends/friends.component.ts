@@ -20,12 +20,14 @@ export class FriendsComponent implements OnInit {
               private fService: FriendService) {
                 this.auth.auth.authState.subscribe(u => {
                   this.user = u
-                  this.userId = u.uid
-                  console.log(u.uid)
-                  console.log(u.displayName)
-                  console.log(u.email)
-                  console.log(u.photoURL)
-                  this.friends = this.fService.getFriendsList(u.uid)
+                  if (u != null) {
+                    this.userId = u.uid
+                    console.log(u.uid)  
+                    // console.log(u.displayName)
+                    // console.log(u.email)
+                    // console.log(u.photoURL)
+                    // this.friends = this.fService.getFriendsList(u.uid)
+                  }
                 })
                }
 
@@ -35,7 +37,7 @@ export class FriendsComponent implements OnInit {
 
   // ADD NEW FRIEND
   public addFriend() {
-    this.auth.getUserByEmail(this.user.email)
+    console.log('clicked')
   }
 
 }
