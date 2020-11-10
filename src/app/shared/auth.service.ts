@@ -10,15 +10,20 @@ import { UserInfo } from '../models/user-info';
   providedIn: 'root'
 })
 export class AuthService {
-  public user: any = null
+  public user: any
   public userId
   public friendCollection: AngularFirestoreCollection
 
   constructor(public auth: AngularFireAuth, private afs: AngularFirestore) {
-    this.auth.onAuthStateChanged((user) => {
-      this.user = user
-      if (user != null) {
+    this.auth.onAuthStateChanged(user => {
+      if (user) {
+        this.user = user
         this.userId = user.uid
+        localStorage.setItem('user', JSON.stringify(this.user))
+        JSON.parse(localStorage.getItem('user'))
+      } else {
+        localStorage.setItem('user', null)
+        JSON.parse(localStorage.getItem('user'))
       }
     }).then(
       () => {
@@ -29,6 +34,12 @@ export class AuthService {
         console.log(error)
       }
     )
+  }
+
+  // CHECK IF SIGNED IN
+  get isLoggedIn(): boolean {
+    const user = JSON.parse(localStorage.getItem('user'))
+    return (user !== null) ? true : false
   }
 
   signIn() {
