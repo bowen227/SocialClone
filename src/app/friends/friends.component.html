@@ -13,8 +13,8 @@
             </div>
             <ng-container *ngIf="userInfo != null && user">
                 <div class="friends-list-items flex-col">
-                    <ul *ngFor="let friends of userInfo | async">
-                        
+                    <ul>
+                        <li *ngFor="let friend of friends">{{ friend.name }}, {{ friend.email }}</li>
                     </ul>
                 </div>
             </ng-container>

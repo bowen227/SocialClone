@@ -6,6 +6,7 @@ import { ok } from 'assert';
 import { AuthService } from './auth.service';
 import { Friend } from '../models/friend';
 import { UserInfo } from '../models/user-info';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -23,16 +24,18 @@ export class FriendService {
         if (a.payload.doc.id == id) {
           // console.log("Found user doc")
           const data = a.payload.doc.data()
-          return { ...data }
+          return data.friends
         }
         return null
       })
     }))
   }
 
-  public addFriend(email: string) {
-    const usersRef = this.afs.collection('users', ref => ref.where('email', '==', 'testperson@email.com'))
-    console.log(usersRef.ref.get())
+  public addFriend(newFriend: object, Uid: string) {
+    // ADD NEWFRIEND OBJ TO DB BY DOC ID = UID
+
+    // ADD TOASTR ALERT IF ADD OR ERROR
+    console.log(newFriend)
   }
 
 }

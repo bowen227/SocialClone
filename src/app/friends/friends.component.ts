@@ -13,37 +13,66 @@ import { Friend } from '../models/friend';
 })
 export class FriendsComponent implements OnInit {
   userInfo: Observable<any[]>
-  friends: object[]
+  friends
   user: any
   userId
 
   constructor(public auth: AuthService,
               private fService: FriendService) {
-                this.auth.auth.authState.subscribe(u => {
-                  this.user = u
-                  if (u != null) {
-                    this.userId = u.uid
-                    // console.log(u.uid)
-                    this.userInfo = this.fService.getFriendsList(u.uid)
-                    this.sortFriends()
-                  }
-                })
-               }
+    this.auth.auth.authState.subscribe(u => {
+      this.user = u
+      if (u != null) {
+        this.userId = u.uid
+        // console.log(u.uid)
+        this.userInfo = this.fService.getFriendsList(u.uid)
+        this.sortFriends()
+      }
+    })
+  }
 
   ngOnInit(): void {  }
 
   // SORT FRIENDS LIST
   sortFriends() {
     this.userInfo.subscribe(x => {
-      x.map(f => {
-        console.log(f)
-      })
+      console.log(x[0])
+      this.friends = x[0]
     })
   }
 
   // ADD NEW FRIEND
   public addFriend() {
-    this.fService.addFriend(this.user.email)
+    let exists:boolean
+    
+    // GET NEWFRIEND EMAIL
+    const userEmail = window.prompt("Email")
+
+    // CHECK TO SEE IF ALREADY A FRIEND
+    for (const key in this.friends) {
+      if (Object.prototype.hasOwnProperty.call(this.friends, key)) {
+        const element = this.friends[key];
+        if (element.email == userEmail) {
+          exists = true
+        }
+      }
+    }
+
+    // IF FRIEND EXISTS ADD TOASTER WARN 'ALREADY FRIEND' ELSE ADD NEW FRIEND
+    if (!exists) {
+      console.log('Add new friend')
+      // CHECK TO SEE IF USEREMAIL EXISTS IN APP USERS
+
+      // IF USER EXISTS CREATE NEW FRIEND OBJECT
+      const newFriend = {
+
+      }
+
+      // PASS FRIEND OBJECT TO SERVICE
+      this.fService.addFriend(newFriend, this.userId)
+    } else {
+      // ADD TOASTR ALERT
+      console.log('Friend exists')
+    }
   }
 
 }
