@@ -13,6 +13,7 @@ import { Friend } from '../models/friend';
 })
 export class FriendsComponent implements OnInit {
   userInfo: Observable<any[]>
+  friends: object[]
   user: any
   userId
 
@@ -24,12 +25,20 @@ export class FriendsComponent implements OnInit {
                     this.userId = u.uid
                     // console.log(u.uid)
                     this.userInfo = this.fService.getFriendsList(u.uid)
+                    this.sortFriends()
                   }
                 })
                }
 
-  ngOnInit(): void {
-    
+  ngOnInit(): void {  }
+
+  // SORT FRIENDS LIST
+  sortFriends() {
+    this.userInfo.subscribe(x => {
+      x.map(f => {
+        console.log(f)
+      })
+    })
   }
 
   // ADD NEW FRIEND

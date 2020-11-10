@@ -24,9 +24,8 @@ export class FriendService {
           // console.log("Found user doc")
           const data = a.payload.doc.data()
           return { ...data }
-        } else {
-          return ok('Not found')
         }
+        return null
       })
     }))
   }
