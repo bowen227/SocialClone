@@ -1,0 +1,16 @@
+section {
+    height: 100vh;
+}
+
+.form-container {
+    height: 100%;
+    width: 50%;
+    background-color: #14171a5d;
+}
+
+.side-container {
+    height: 100%;
+    width: 50%;
+    color: #fff;
+    background-color: #1da0f279;
+}

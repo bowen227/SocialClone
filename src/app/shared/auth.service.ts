@@ -2,6 +2,7 @@ import { animation } from '@angular/animations';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth'
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
 import * as firebase from 'firebase'
 import { map } from 'rxjs/operators'
 import { UserInfo } from '../models/user-info';
@@ -12,9 +13,12 @@ import { UserInfo } from '../models/user-info';
 export class AuthService {
   public user: any
   public userId
-  public friendCollection: AngularFirestoreCollection
 
-  constructor(public auth: AngularFireAuth, private afs: AngularFirestore) {
+  constructor(
+    public auth: AngularFireAuth,
+    private router: Router,
+    private afs: AngularFirestore
+    ) {
     this.auth.onAuthStateChanged(user => {
       if (user) {
         this.user = user
@@ -25,15 +29,7 @@ export class AuthService {
         localStorage.setItem('user', null)
         JSON.parse(localStorage.getItem('user'))
       }
-    }).then(
-      () => {
-        // console.log('Getting friends')
-        this.friendCollection = this.afs.collection('users', ref => ref)
-      }).catch(
-      (error) => {
-        console.log(error)
-      }
-    )
+    })
   }
 
   // CHECK IF SIGNED IN
@@ -43,15 +39,21 @@ export class AuthService {
   }
 
   signIn() {
-    this.auth.signInWithPopup(new firebase.default.auth.GoogleAuthProvider()).then(() => {
-      console.log('Signed In')
+    this.auth.signInWithPopup(new firebase.default.auth.GoogleAuthProvider()).then((result) => {
       this.createUserProfile()
+    }).then(() => {
+      this.router.navigate(['home'])
+    }).catch(error => {
+      console.log(error)
     })
   }
 
   signOut() {
     this.auth.signOut().then(() => {
       console.log("Signed Out")
+    }).then(() => {
+      this.router.navigate([''])
+      localStorage.removeItem('user')
     })
   }
 

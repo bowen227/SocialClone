@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { AuthService } from '../shared/auth.service';
 
 @Component({
@@ -7,7 +8,7 @@ import { AuthService } from '../shared/auth.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  public user: any = null;
+  public user: any;
   public showMore: boolean = false;
 
   constructor(public auth: AuthService) {
@@ -18,10 +19,6 @@ export class NavbarComponent implements OnInit {
     this.auth.auth.authState.subscribe((user) => {
       this.user = user
     })
-  }
-
-  signIn() {
-    this.auth.signIn()
   }
 
   signOut() {

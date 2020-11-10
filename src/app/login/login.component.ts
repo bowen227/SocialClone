@@ -15,4 +15,8 @@ export class LoginComponent implements OnInit {
     
   }
 
+  signIn() {
+    this.auth.signIn()
+  }
+
 }
