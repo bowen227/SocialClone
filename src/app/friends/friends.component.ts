@@ -35,8 +35,11 @@ export class FriendsComponent implements OnInit {
   // SORT FRIENDS LIST
   sortFriends() {
     this.userInfo.subscribe(x => {
-      console.log(x[0])
-      this.friends = x[0]
+      if (x[0].length == 0) {
+        this.friends = null
+      } else {
+        this.friends = x[0]
+      }
     })
   }
 
@@ -61,14 +64,12 @@ export class FriendsComponent implements OnInit {
     if (!exists) {
       console.log('Add new friend')
       // CHECK TO SEE IF USEREMAIL EXISTS IN APP USERS
-
+      const userDetails = this.fService.searchUsers(userEmail)
       // IF USER EXISTS CREATE NEW FRIEND OBJECT
-      const newFriend = {
-
-      }
+      // const newFriend = userDetails
 
       // PASS FRIEND OBJECT TO SERVICE
-      this.fService.addFriend(newFriend, this.userId)
+      this.fService.addFriend(userDetails, this.userId)
     } else {
       // ADD TOASTR ALERT
       console.log('Friend exists')

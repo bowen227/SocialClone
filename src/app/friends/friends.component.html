@@ -8,13 +8,13 @@
             <strong>Friends</strong>
         </a>
         <div class="grow">
-            <div *ngIf="userInfo == null">
+            <div *ngIf="friends == null">
                 You haven't added any friends
             </div>
-            <ng-container *ngIf="userInfo != null && user">
+            <ng-container *ngIf="friends">
                 <div class="friends-list-items flex-col">
                     <ul>
-                        <li *ngFor="let friend of friends">{{ friend.name }}, {{ friend.email }}</li>
+                        <li *ngFor="let friend of friends">{{ friend.name }}</li>
                     </ul>
                 </div>
             </ng-container>
