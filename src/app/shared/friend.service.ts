@@ -47,7 +47,8 @@ export class FriendService {
         const d = {
           userName: x.data().userName,
           userEmail: x.data().email,
-          photoUrl: x.data().photoUrl
+          photoUrl: x.data().photoUrl,
+          userId: x.id
         }
         details = d
       })
