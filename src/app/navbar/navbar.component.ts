@@ -29,4 +29,12 @@ export class NavbarComponent implements OnInit {
     this.showMore = !this.showMore
   }
 
+  goToProfile() {
+    console.log('go to profile')
+  }
+
+  showFriends() {
+    console.log('showing friends')
+  }
+
 }

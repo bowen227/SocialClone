@@ -44,15 +44,14 @@ section {
 }
 
 .drop-down {
-    padding: .5em;
+    padding: .5em 1.5em;
 }
 
-.sign-out-btn {
-    padding: 10px;
-    width: 60px;
+.drop-down p {
+    width: 175px;
 }
 
-.sign-out-btn:hover {
+.drop-down p:hover {
     cursor: pointer;
     color: #1DA1F2;
 }
@@ -60,4 +59,10 @@ section {
 hr {
     border: 1px solid #fff;
     background-color: #fff;
+}
+
+@media only screen and (min-width: 768px) {
+    .small {
+        display: none;
+    }
 }
