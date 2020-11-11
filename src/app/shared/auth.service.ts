@@ -57,7 +57,7 @@ export class AuthService {
     })
   }
 
-  getUserInfoDoc():boolean {
+  checkIfUserDocExists():boolean {
     // CHECK IF USER EXISTS IN DB
     const exists = this.afs.doc(`users/${this.userId}`).snapshotChanges().subscribe(x => {
       x.payload.exists
@@ -72,7 +72,7 @@ export class AuthService {
 
   createUserProfile() {
     // GET USER REF
-    const userRef = this.getUserInfoDoc()
+    const userRef = this.checkIfUserDocExists()
     // console.log(userRef)
 
     // CHECK IF EXISTS
