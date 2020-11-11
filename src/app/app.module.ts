@@ -20,6 +20,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 // GUARDS
 import { AuthGuard } from './shared/auth.guard';
+import { DetailsComponent } from './details/details.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { AuthGuard } from './shared/auth.guard';
     FriendsComponent,
     MessagesComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    DetailsComponent
   ],
   imports: [
     BrowserModule,
