@@ -16,6 +16,10 @@ section {
     background-color: #1da0f279;
 }
 
+img {
+    width: 100%;
+}
+
 @media only screen and (min-width: 1024px) {
     .form-container {
         width: 40%;
