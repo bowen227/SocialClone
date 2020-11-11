@@ -4,6 +4,7 @@ import { AuthService } from '../shared/auth.service';
 import { FriendService } from '../shared/friend.service';
 import { map } from 'rxjs/operators';
 import { Friend } from '../models/friend';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -18,7 +19,8 @@ export class FriendsComponent implements OnInit {
   userId
 
   constructor(public auth: AuthService,
-              private fService: FriendService) {
+              private fService: FriendService,
+              private router: Router) {
     this.auth.auth.authState.subscribe(u => {
       this.user = u
       if (u != null) {
@@ -87,6 +89,7 @@ export class FriendsComponent implements OnInit {
     localStorage.removeItem('searchedUser')
     // NAVIGATE TO DETAILS PAGE
     console.log(user.userId)
+    this.router.navigateByUrl(`details/${user.userId}`)
   }
 
 }
