@@ -80,16 +80,4 @@ export class FriendsComponent implements OnInit {
     }
   }
 
-  // GO TO FRIENDS PAGE
-  friendDetails(email: string) {
-    // GET FRIENDS ID BY EMAIL
-    this.fService.searchUsers(email)
-
-    const user = JSON.parse(localStorage.getItem('searchedUser'))
-    localStorage.removeItem('searchedUser')
-    // NAVIGATE TO DETAILS PAGE
-    console.log(user.userId)
-    this.router.navigateByUrl(`details/${user.userId}`)
-  }
-
 }
