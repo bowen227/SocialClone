@@ -57,25 +57,34 @@ export class AuthService {
     })
   }
 
-  getUserInfoDoc() {
-    this.afs.doc(`users/${this.userId}`).snapshotChanges().subscribe(x => {
-      return x.payload.exists
+  getUserInfoDoc():boolean {
+    // CHECK IF USER EXISTS IN DB
+    const exists = this.afs.doc(`users/${this.userId}`).snapshotChanges().subscribe(x => {
+      x.payload.exists
     })
+
+    if (exists) {
+      return true
+    } else {
+      return false
+    }
   }
 
   createUserProfile() {
-    // console.log('create profile')
+    // GET USER REF
     const userRef = this.getUserInfoDoc()
-    console.log(userRef)
-    if (userRef == null) {
-      // console.log('Adding user to DB')
+    // console.log(userRef)
+
+    // CHECK IF EXISTS
+    if (!userRef) {
+      // CREATE USER OBJ
       const data = {
         userName: this.user.displayName,
         email: this.user.email,
         photoUrl: this.user.photoURL,
         friends: []
       }
-      // console.log(data)
+      // ADD TO DB
       this.afs.collection('users').doc(this.userId).set(data)
     } else {
       console.log('User already in DB')
