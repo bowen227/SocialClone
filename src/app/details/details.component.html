@@ -1,7 +1,26 @@
-<section>
+<section class="flex-col just-center ali-center">
     <button (click)="goBack()">Back</button>
 
-    <div *ngIf="userDetails">
-        {{ userDetails.userName }}
+    <div class="user-container flex-col just-center ali-center" *ngIf="userDetails">
+        <div class="profile-img">
+            <img src="{{ userDetails.photoUrl }}" alt="profile image">
+        </div>
+        <span>{{ userDetails.userName }}</span>
+        <span>{{ userDetails.email }}</span>        
+    </div>
+    <div class="two-col flex-row">
+        <div class="friends-container">
+            <div *ngIf="friends.length > 0">
+                <ng-container *ngFor="let friend of friends">
+                    {{ friend }}
+                </ng-container>
+            </div>
+            <div *ngIf="friends.length == 0">
+                No friends to display
+            </div>
+        </div>
+        <div class="posts-container">
+            No Posts to display
+        </div>
     </div>
 </section>

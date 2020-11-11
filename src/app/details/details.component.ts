@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DetailsService } from '../shared/details.service';
 import { Location } from '@angular/common'
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators'
 
 
 @Component({
@@ -14,6 +12,7 @@ import { map } from 'rxjs/operators'
 export class DetailsComponent implements OnInit {
   userId: string
   userDetails: any
+  friends = []
 
   constructor(private route: ActivatedRoute,
               public router: Router,
@@ -35,6 +34,18 @@ export class DetailsComponent implements OnInit {
   getUserDetails() {
     this.dService.getDetails(this.userId).subscribe(res => {
       this.userDetails = res.payload.data()
+      if (this.userDetails) {
+        for (const key in this.userDetails) {
+          if (Object.prototype.hasOwnProperty.call(this.userDetails, key)) {
+            const element = this.userDetails[key];
+            if (element == Array) {
+              element.forEach(item => {
+                this.friends.push(item)
+              });
+            }
+          }
+        }
+      }
     })
   }
 
