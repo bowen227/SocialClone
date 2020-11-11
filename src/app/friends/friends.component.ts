@@ -65,11 +65,13 @@ export class FriendsComponent implements OnInit {
       console.log('Add new friend')
       // CHECK TO SEE IF USEREMAIL EXISTS IN APP USERS
       const userDetails = this.fService.searchUsers(userEmail)
+
       // IF USER EXISTS CREATE NEW FRIEND OBJECT
       // const newFriend = userDetails
 
       // PASS FRIEND OBJECT TO SERVICE
-      this.fService.addFriend(userDetails, this.userId)
+      console.log(userDetails)
+      // this.fService.addFriend(userDetails, this.userId)
     } else {
       // ADD TOASTR ALERT
       console.log('Friend exists')

@@ -14,9 +14,11 @@ import { ActionSequence } from 'protractor';
 })
 export class FriendService {
   userCollection: AngularFirestoreCollection
+  userRef:any
 
   constructor(private afs: AngularFirestore, private auth: AuthService) { 
     this.userCollection = this.afs.collection('users', ref => ref)
+    this.userRef = this.afs.collection('users').ref
   }
 
   public getFriendsList(id: string) {
@@ -33,19 +35,26 @@ export class FriendService {
     ))
   }
 
-  public searchUsers(email: string): any {
-    const data = this.afs.firestore.collection('users').where('email', '==', email).get().then(
-      (response) => {
-        response.forEach(doc => {
-          const newFriend = {
-            name: doc.data().userName,
-            email: doc.data().email,
-            photo: doc.data().photoUrl
-          }
-          return newFriend
-        })
-      }
-    )
+  public async searchUsers(email: string) {
+    const userDetails = this.afs.firestore.collection('users').where('email', '==', email)
+    let details = []
+    const doc = await userDetails.get()
+
+    if (!doc.empty) {
+      doc.docs.map(x => {
+        const d = {
+          userName: x.data().userName,
+          userEmail: x.data().email,
+          photoUrl: x.data().photoUrl
+        }
+        details.push(d)
+      })
+    } else {
+      console.log('No Document')
+    }
+
+    return details
+    
   }
 
   public addFriend(newFriend: object, Uid: string) {
