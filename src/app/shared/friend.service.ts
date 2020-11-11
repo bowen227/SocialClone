@@ -14,11 +14,11 @@ import { ActionSequence } from 'protractor';
 })
 export class FriendService {
   userCollection: AngularFirestoreCollection
-  userRef:any
+  // userRef:any
 
   constructor(private afs: AngularFirestore, private auth: AuthService) { 
     this.userCollection = this.afs.collection('users', ref => ref)
-    this.userRef = this.afs.collection('users').ref
+    // this.userRef = this.afs.collection('users').ref
   }
 
   public getFriendsList(id: string) {
@@ -36,10 +36,12 @@ export class FriendService {
   }
 
   public async searchUsers(email: string) {
+    // GET USER BY EMAIL
     const userDetails = this.afs.firestore.collection('users').where('email', '==', email)
-    let details = []
+    let details
     const doc = await userDetails.get()
 
+    // IF NOT EMPTY CREATE OBJ
     if (!doc.empty) {
       doc.docs.map(x => {
         const d = {
@@ -47,21 +49,27 @@ export class FriendService {
           userEmail: x.data().email,
           photoUrl: x.data().photoUrl
         }
-        details.push(d)
+        details = d
       })
     } else {
       console.log('No Document')
     }
-
+    // ADD OBJ TO LOCALSTORAGE RETURN OBJ
+    localStorage.setItem('searchedUser', JSON.stringify(details))
     return details
     
   }
 
   public addFriend(newFriend: object, Uid: string) {
     // ADD NEWFRIEND OBJ TO DB BY DOC ID = UID
+    const userRef = this.userCollection.doc(Uid)
+    userRef.update({
+      friends: firebase.default.firestore.FieldValue.arrayUnion(newFriend)
+    })
 
     // ADD TOASTR ALERT IF ADD OR ERROR
     console.log(newFriend)
+    console.log(Uid)
   }
 
 }

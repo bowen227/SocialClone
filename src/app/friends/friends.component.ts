@@ -63,15 +63,15 @@ export class FriendsComponent implements OnInit {
     // IF FRIEND EXISTS ADD TOASTER WARN 'ALREADY FRIEND' ELSE ADD NEW FRIEND
     if (!exists) {
       console.log('Add new friend')
-      // CHECK TO SEE IF USEREMAIL EXISTS IN APP USERS
-      const userDetails = this.fService.searchUsers(userEmail)
+      // CHECK TO SEE IF USEREMAIL EXISTS IN DB 'USERS'
+      this.fService.searchUsers(userEmail).then(
+        data => data
+      )
 
-      // IF USER EXISTS CREATE NEW FRIEND OBJECT
-      // const newFriend = userDetails
+      const userDetails = JSON.parse(localStorage.getItem('searchedUser'))
 
       // PASS FRIEND OBJECT TO SERVICE
-      console.log(userDetails)
-      // this.fService.addFriend(userDetails, this.userId)
+      this.fService.addFriend(userDetails, this.userId)
     } else {
       // ADD TOASTR ALERT
       console.log('Friend exists')
