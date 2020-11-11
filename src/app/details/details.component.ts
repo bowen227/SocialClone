@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FriendService } from '../shared/friend.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DetailsService } from '../shared/details.service';
+import { Location } from '@angular/common'
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators'
+
 
 @Component({
   selector: 'app-details',
@@ -7,14 +12,38 @@ import { FriendService } from '../shared/friend.service';
   styleUrls: ['./details.component.css']
 })
 export class DetailsComponent implements OnInit {
+  userId: string
+  userDetails: any
 
-  constructor( ) { }
+  constructor(private route: ActivatedRoute,
+              public router: Router,
+              private dService: DetailsService,
+              private location: Location) { }
 
   ngOnInit(): void {
+    this.getUserIdFromRoute()
+
+    this.getUserDetails()
   }
 
-  friendDetails(email: string) {
-    
+  // GET USERID FROM ROUTE
+  getUserIdFromRoute() {
+    this.userId = this.route.snapshot.paramMap.get('id')
+  }
+
+  // GET USER DETAILS
+  getUserDetails() {
+    this.dService.getDetails(this.userId).subscribe(res => {
+      this.userDetails = res.payload.data()
+    })
+  }
+
+  // GET USER POSTS
+
+  // GET USER FRIENDS
+
+  goBack(): void {
+    this.location.back()
   }
 
 }

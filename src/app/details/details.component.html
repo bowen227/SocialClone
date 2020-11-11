@@ -1,1 +1,7 @@
-<p>details works!</p>
+<section>
+    <button (click)="goBack()">Back</button>
+
+    <div *ngIf="userDetails">
+        {{ userDetails.userName }}
+    </div>
+</section>
