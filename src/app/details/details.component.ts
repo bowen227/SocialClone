@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FriendService } from '../shared/friend.service';
 
 @Component({
   selector: 'app-details',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DetailsComponent implements OnInit {
 
-  constructor() { }
+  constructor( ) { }
 
   ngOnInit(): void {
+  }
+
+  friendDetails(email: string) {
+    
   }
 
 }
