@@ -1,11 +1,8 @@
-import { animation } from '@angular/animations';
 import { Injectable } from '@angular/core';
+import * as firebase from 'firebase/app'
 import { AngularFireAuth } from '@angular/fire/auth'
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import * as firebase from 'firebase'
-import { map } from 'rxjs/operators'
-import { UserInfo } from '../models/user-info';
 
 @Injectable({
   providedIn: 'root'
