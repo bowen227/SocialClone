@@ -63,6 +63,10 @@ section {
     margin-bottom: 250px;
 }
 
+.far {
+    margin-right: 5px;
+}
+
 .post-form {
     width: 100%;
 }
