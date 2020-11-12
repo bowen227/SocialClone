@@ -34,9 +34,9 @@ export class PostService {
     return this.postCollection.snapshotChanges().pipe(map(actions => {
       return actions.map(a => {
         const data = a.payload.doc.data() as Post
-        const id = a.payload.doc.id
+        const docId = a.payload.doc.id
         if (data.userId == id) {
-          return { id, ...data }
+          return { docId, ...data }
         }
       })
     }))
