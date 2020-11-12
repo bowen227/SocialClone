@@ -13,9 +13,11 @@
         </div>
         <div class="two-col flex-row">
             <div class="friends-container">
+                <h2>Friends</h2>
+                <hr>
                 <div *ngIf="friends.length > 0">
                     <ng-container *ngFor="let friend of friends">
-                        {{ friend }}
+                        {{ friend.userName }}
                     </ng-container>
                 </div>
                 <div *ngIf="friends.length == 0">
@@ -23,7 +25,12 @@
                 </div>
             </div>
             <div class="posts-container">
+                <h2>Posts:</h2>
+                <hr>
                 No Posts to display
+                <ng-container *ngFor="let p of userPosts | async; let i = index">
+                    {{ p.userName }}
+                </ng-container>
             </div>
         </div>
     </div>

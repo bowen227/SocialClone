@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DetailsService } from '../shared/details.service';
 import { Location } from '@angular/common'
+import { Observable } from 'rxjs';
+import { Post } from '../models/post';
+import { PostService } from '../shared/post.service';
 
 
 @Component({
@@ -13,16 +16,22 @@ export class DetailsComponent implements OnInit {
   userId: string
   userDetails: any
   friends = []
+  posts = []
+  userPosts: Observable<Post[]>
 
   constructor(private route: ActivatedRoute,
               public router: Router,
               private dService: DetailsService,
-              private location: Location) { }
+              private location: Location,
+              private postService: PostService) { }
 
   ngOnInit(): void {
     this.getUserIdFromRoute()
 
     this.getUserDetails()
+
+    this.getUserPosts()
+    
   }
 
   // GET USERID FROM ROUTE
@@ -34,11 +43,12 @@ export class DetailsComponent implements OnInit {
   getUserDetails() {
     this.dService.getDetails(this.userId).subscribe(res => {
       this.userDetails = res.payload.data()
+      this.userId = res.payload.id
       if (this.userDetails) {
         for (const key in this.userDetails) {
           if (Object.prototype.hasOwnProperty.call(this.userDetails, key)) {
             const element = this.userDetails[key];
-            if (element == Array) {
+            if (Object.prototype.toString.call(element).indexOf('Array')>-1) {
               element.forEach(item => {
                 this.friends.push(item)
               });
@@ -50,6 +60,12 @@ export class DetailsComponent implements OnInit {
   }
 
   // GET USER POSTS
+  getUserPosts() {
+    if (this.userId) {
+      this.userPosts = this.postService.getPostsByUserId(this.userId)
+      console.log(this.userPosts)
+    }
+  }
 
   // GET USER FRIENDS
 

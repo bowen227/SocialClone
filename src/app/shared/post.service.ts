@@ -30,6 +30,18 @@ export class PostService {
      }))
    }
 
+   public getPostsByUserId(id: string) {
+    return this.postCollection.snapshotChanges().pipe(map(actions => {
+      return actions.map(a => {
+        const data = a.payload.doc.data() as Post
+        const id = a.payload.doc.id
+        if (data.userId == id) {
+          return { id, ...data }
+        }
+      })
+    }))
+   }
+
    public getPost(id: string) {
      return this.afs.doc<Post>(`posts/${id}`)
    }

@@ -60,3 +60,9 @@ section {
     width: 70%;
     height: 100%;
 }
+
+@media only screen and (min-width: 1024px) {
+    .friends-container {
+        display: block;
+    }
+}
