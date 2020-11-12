@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from '../shared/auth.service';
+import { FriendService } from '../shared/friend.service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,17 +9,27 @@ import { AuthService } from '../shared/auth.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  public user: any;
-  public showMore: boolean = false;
+  public user: any
+  public userId: string
+  public showMore: boolean = false
+  public userInfo: Observable<any[]>
+  public friends
+  public showFriends: boolean = false
 
-  constructor(public auth: AuthService) {
-    
-   }
+  constructor(public auth: AuthService,
+              private fService: FriendService) {
+      this.auth.auth.authState.subscribe((user) => {
+        if (user != null) {
+          this.user = user
+          this.userId = user.uid
+          this.userInfo = this.fService.getFriendsList(this.userId)
+          this.sortFriends()
+        }
+      })
+    }
 
   ngOnInit(): void {
-    this.auth.auth.authState.subscribe((user) => {
-      this.user = user
-    })
+    
   }
 
   signOut() {
@@ -33,8 +44,26 @@ export class NavbarComponent implements OnInit {
     console.log('go to profile')
   }
 
-  showFriends() {
-    console.log('showing friends')
+  toggleFriends() {
+    this.showFriends = !this.showFriends
+  }
+
+  sortFriends() {
+    this.userInfo.subscribe(x => {
+      // console.log(x)
+      for (const key in x) {
+        if (Object.prototype.hasOwnProperty.call(x, key)) {
+          const element = x[key];
+          if (Object.prototype.toString.call(element).indexOf('Array')>-1) {
+            if (element.length == 0) {
+              this.friends = null
+            } else {
+              this.friends = element
+            }
+          }
+        }
+      }
+    })
   }
 
 }

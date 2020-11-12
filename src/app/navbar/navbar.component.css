@@ -61,6 +61,43 @@ hr {
     background-color: #fff;
 }
 
+.friends-popup {
+    position: fixed;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #14171adc;
+}
+
+.friends-popup span {
+    text-align: right;
+}
+
+.friends-popup .far {
+    font-size: 26px;
+    padding: .5em;
+}
+
+.friends-popup ul {
+    list-style: none;
+    padding: 0px;
+    font-size: 24px;
+}
+
+.friends-popup ul li {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 15px;
+}
+
+.friends-popup ul li img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
 @media only screen and (min-width: 768px) {
     .small {
         display: none;
