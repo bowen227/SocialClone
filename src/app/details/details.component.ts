@@ -78,6 +78,13 @@ export class DetailsComponent implements OnInit {
   getUserPosts() {
     if (this.userId) {
       this.userPosts = this.postService.getPostsByUserId(this.userId)
+
+      this.userPosts.subscribe(res => res.map(item => {
+        if (item.userId == this.userId) {
+          this.posts.push(item)
+        }
+        console.log(this.posts)
+      }))
     }
   }
 

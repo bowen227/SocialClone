@@ -27,7 +27,7 @@
             <div class="posts-container">
                 <h2>Posts:</h2>
                 <div *ngIf="userPosts">
-                    <div class="card" *ngFor="let post of userPosts | async; let i = index">
+                    <div class="card" *ngFor="let post of posts; let i = index">
                         <div id="share-div" [id]='i'>
                             <div class="card-content flex-col between">
                                 <div class="flex-row">
