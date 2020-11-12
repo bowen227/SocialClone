@@ -46,6 +46,8 @@ export class DetailsComponent implements OnInit {
     this.getUserDetails()
 
     this.getUserPosts()
+
+    this.scrollToTop()
     
   }
 
@@ -89,15 +91,6 @@ export class DetailsComponent implements OnInit {
           }
         }
       })
-
-      // this.userPosts.subscribe(res => res.map(item => {
-      //   if (item.userId) {
-      //     if (item.userId == this.userId) {
-      //       this.posts.push(item)
-      //     }
-      //   }
-      //   console.log(this.posts)
-      // }))
     }
   }
 
@@ -137,6 +130,10 @@ export class DetailsComponent implements OnInit {
     }
     this.postService.addComment(id, data)
     this.newComment = ''
+  }
+
+  public scrollToTop() {
+    window.scroll(0, 0);
   }
 
 }
