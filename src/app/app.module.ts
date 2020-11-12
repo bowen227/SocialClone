@@ -11,6 +11,7 @@ import { FriendsComponent } from './friends/friends.component';
 import { MessagesComponent } from './messages/messages.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
+import { DetailsComponent } from './details/details.component';
 
 // FIREBASE
 import { AngularFireModule } from '@angular/fire';
@@ -20,7 +21,6 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 // GUARDS
 import { AuthGuard } from './shared/auth.guard';
-import { DetailsComponent } from './details/details.component';
 
 @NgModule({
   declarations: [
