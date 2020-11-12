@@ -78,7 +78,6 @@ export class DetailsComponent implements OnInit {
   getUserPosts() {
     if (this.userId) {
       this.userPosts = this.postService.getPostsByUserId(this.userId)
-      console.log(this.userPosts)
     }
   }
 

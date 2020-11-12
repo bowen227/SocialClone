@@ -1,8 +1,12 @@
 .post-container {
     height: 100%;
-    width: 100%;
+    /* width: 100%; */
     overflow-x: hidden;
     margin-bottom: 250px;
+}
+
+.post-form {
+    width: 100%;
 }
 
 .add-post-btn i {
@@ -21,6 +25,7 @@
 }
 
 .add-post-btn {
+    align-self: flex-start;
     padding: 5px;
     color: #1DA1F2;
     background-color: #202024;
@@ -62,7 +67,7 @@ button:hover {
     margin-top: 4px;
     padding: 10px 0px 0px 0px;
     background-color: #14171a5d;
-    width: 100%;
+    max-width: 500px;
 }
 
 .user-image {
@@ -82,17 +87,24 @@ button:hover {
 .card-heading {
     margin: 0px 10px 0px 10px;
     max-width: 550px;
+    text-align: left;
+    padding-top: 7px;
 }
 
 .post-image {
     text-align: center;
     /* border: 1px solid #fff; */
-    border-radius: 1em;
+    /* border-radius: 1em;
     margin-right: 10px;
-    margin-top: 10px;
+    margin-top: 10px; */
     background-color: #14171A;
-    max-width: 500px;
+    width: 100%;
     overflow: hidden;
+}
+
+.card-body {
+    padding: 10px;
+    text-align: left;
 }
 
 .post-image img {
