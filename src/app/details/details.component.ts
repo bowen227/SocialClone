@@ -5,6 +5,7 @@ import { Location } from '@angular/common'
 import { Observable } from 'rxjs';
 import { Post } from '../models/post';
 import { PostService } from '../shared/post.service';
+import { AuthService } from '../shared/auth.service';
 
 
 @Component({
@@ -13,19 +14,33 @@ import { PostService } from '../shared/post.service';
   styleUrls: ['./details.component.css']
 })
 export class DetailsComponent implements OnInit {
+  loggedInUser: any
+  loggedInUserId: string
   userId: string
   userDetails: any
   friends = []
   posts = []
   userPosts: Observable<Post[]>
+  index = null;
+  newComment: string;
 
   constructor(private route: ActivatedRoute,
               public router: Router,
+              public auth: AuthService,
               private dService: DetailsService,
               private location: Location,
               private postService: PostService) { }
 
   ngOnInit(): void {
+    this.auth.auth.authState.subscribe(u => {
+      if (u !== null) {
+        this.loggedInUser = u
+        this.loggedInUserId = u.uid
+      } else {
+        this.loggedInUser = null
+      }
+    })
+
     this.getUserIdFromRoute()
 
     this.getUserDetails()
@@ -71,6 +86,38 @@ export class DetailsComponent implements OnInit {
 
   goBack(): void {
     this.location.back()
+  }
+
+  // LIKE POST
+  public likePost(id: string) {
+    this.postService.likePost(id, this.userId)
+  }
+
+  // UNLIKE POST
+  public unlikePost(id: string) {
+    this.postService.removeLike(id, this.userId)
+  }
+
+  // SHOW COMMENTS
+  public showComment(index: number) {
+    if (this.index == null) {
+      this.index = index
+    } else {
+      this.index = null
+    }
+  }
+
+  // SAVE COMMENT
+  public saveComment(id: string) {
+    const data = {
+      userName: this.loggedInUser.displayName,
+      userId: this.loggedInUserId,
+      imgUrl: this.loggedInUser.photoURL,
+      comment: this.newComment,
+      date: new Date()
+    }
+    this.postService.addComment(id, data)
+    this.newComment = ''
   }
 
 }
