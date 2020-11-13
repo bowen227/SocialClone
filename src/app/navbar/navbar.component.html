@@ -26,6 +26,7 @@
         <span (click)="toggleFriends()">
             <i class="far fa-window-close"></i>
         </span>
+        <button (click)="addConnection()">Add Connection</button>
         <ul>
             <li *ngFor="let friend of friends flex-row" [routerLink]="['/details', friend.userId]">
                 <img src="{{ friend.photoUrl }}" alt="">
