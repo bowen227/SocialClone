@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app'
 import { AngularFireAuth } from '@angular/fire/auth'
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
+import { map, tap } from 'rxjs/operators'
+import { UserInfo } from '../models/user-info';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +13,9 @@ import { Router } from '@angular/router';
 export class AuthService {
   public user: any
   public userId
+  userEmail: string
+  usersCollection: AngularFirestoreCollection<UserInfo>
+  userProfile: Observable<UserInfo[]>
 
   constructor(
     public auth: AngularFireAuth,
@@ -37,11 +43,13 @@ export class AuthService {
 
   signIn() {
     this.auth.signInWithPopup(new firebase.default.auth.GoogleAuthProvider()).then((result) => {
-      this.createUserProfile()
+      this.userEmail = result.user.email
     }).then(() => {
-      this.router.navigate(['home'])
+      this.createUserProfile(this.userEmail)
     }).catch(error => {
       console.error(error.message)
+    }).finally(() => {
+      this.router.navigate(['home'])
     })
   }
 
@@ -54,41 +62,40 @@ export class AuthService {
     })
   }
 
-  createUserProfile() {
-    // GET USER REF
-    const userRef = this.checkIfUserDocExists()
-    // console.log(userRef)
+  createUserProfile(email: string) {
+    // CHECK IF USER PROFILE EXISTS
+    this.usersCollection = this.afs.collection('users', ref => ref.where('email', '==', email))
+    this.userProfile = this.usersCollection.snapshotChanges().pipe(map(actions => {
+      return actions.map(action => {
+        const data = action.payload.doc.data() as UserInfo
 
-    // CHECK IF EXISTS
-    if (!userRef) {
-      // CREATE USER OBJ
-      const data = {
-        userName: this.user.displayName,
-        email: this.user.email,
-        photoUrl: this.user.photoURL,
-        friends: []
-      }
-      // ADD TO DB
-      this.afs.collection('users').doc(this.userId).set(data)
-    } else {
-      console.log('User already in DB')
-    }
-  }
+        return {
+          userName: data.userName,
+          email: data.email,
+          photoUrl: data.photoUrl,
+          friends: data.friends
+        }
+      })
+    }))
 
-  checkIfUserDocExists():boolean {
-    const existsRef = this.afs.collection('users').doc(this.userId)
-    let exists: boolean
-    existsRef.get().subscribe(res => {
-      if (res.exists) {
-        console.log('true')
-        exists = true
+    // IF !EXISTS CREATE USER PROFILE
+    this.userProfile.subscribe(res => {
+      if (res.length == 0) {
+        console.log('not found')
+        const data = {
+          userName: this.user.displayName,
+          email: this.user.email,
+          photoUrl: this.user.photoURL,
+          friends: []
+        }
+
+        this.afs.collection('users').doc(this.userId).set(data)
+        // ADD TOASTR SUCCESS
       } else {
-        console.log('false')
-        exists = false
+        // ADD TOASTR SUCCESS
+        console.log('found')
       }
     })
-
-    return exists
   }
 
 }
