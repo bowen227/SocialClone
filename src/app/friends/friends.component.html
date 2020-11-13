@@ -11,7 +11,7 @@
             <div *ngIf="friends == null">
                 You haven't added any friends
             </div>
-            <ng-container *ngIf="friends">
+            <ng-container *ngIf="friends != null">
                 <div class="friends-list-items flex-col">
                     <ul>
                         <li *ngFor="let friend of friends" [routerLink]="['/details', friend.userId]">{{ friend.userName }}</li>
