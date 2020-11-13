@@ -83,25 +83,23 @@ export class NavbarComponent implements OnInit {
           }
         }
       }
+
       // IF CONNECTION !EXISTS CREATE CONNECTION OBJ
       if (!exists) {
         this.fService.searchUsers(userEmail.toLowerCase()).then(
           data => data
-        )
+        ).then(res => {
+          const userDetails = JSON.parse(localStorage.getItem('searchedUser'))
 
-        const userDetails = JSON.parse(localStorage.getItem('searchedUser'))
-
-        // PASS CONNECTION OBJ TO SERVICE
-        // ADD TOASTR ALERT
-        this.fService.addFriend(userDetails, this.userId)
+          // PASS CONNECTION OBJ TO SERVICE
+          // ADD TOASTR ALERT
+          this.fService.addFriend(userDetails, this.userId)
+        }).catch(error => console.error(error))
       } else {
         // ADD TOASTR ALERT
         console.error('Connection exists')
       }
     }
-
-    // IF CONNECTION !EXISTS ADD NEW CONNECTION
-
   }
 
 }
