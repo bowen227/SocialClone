@@ -61,7 +61,6 @@ export class FriendService {
     localStorage.setItem('searchedUser', JSON.stringify(details))
     console.log('Set in localstorage')
     return details
-    
   }
 
   public addFriend(newFriend: object, Uid: string) {
@@ -69,9 +68,9 @@ export class FriendService {
     const userRef = this.userCollection.doc(Uid)
     userRef.update({
       friends: firebase.default.firestore.FieldValue.arrayUnion(newFriend)
-    })
-
-    localStorage.removeItem('searchedUser')
+    }).then(action => {
+      localStorage.removeItem('searchedUser')
+    }).catch(error => console.error(error))
 
     // ADD TOASTR ALERT IF ADD OR ERROR
   }
