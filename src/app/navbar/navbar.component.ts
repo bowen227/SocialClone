@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../shared/auth.service';
 import { FriendService } from '../shared/friend.service';
@@ -17,7 +18,8 @@ export class NavbarComponent implements OnInit {
   public showFriends: boolean = false
 
   constructor(public auth: AuthService,
-              private fService: FriendService) {
+              private fService: FriendService,
+              private router: Router) {
       this.auth.auth.authState.subscribe((user) => {
         if (user != null) {
           this.user = user
@@ -38,10 +40,6 @@ export class NavbarComponent implements OnInit {
 
   openMenu() {
     this.showMore = !this.showMore
-  }
-
-  goToProfile() {
-    console.log('go to profile')
   }
 
   toggleFriends() {
@@ -100,6 +98,12 @@ export class NavbarComponent implements OnInit {
         console.error('Connection exists')
       }
     }
+  }
+
+  goToDetailsPage(id: string) {
+    this.router.navigate(['home']).then(() => {
+      this.router.navigate([`/details/${id}`])
+    })
   }
 
 }

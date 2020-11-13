@@ -29,7 +29,13 @@
         <button class="btn" (click)="addConnection()">Add Connection</button>
         <ul>
             <li *ngIf="!friends">You haven't added any connections</li>
-            <li *ngFor="let friend of friends flex-row" [routerLink]="['/details', friend.userId]">
+            <!-- <li *ngFor="let friend of friends flex-row" [routerLink]="['/details', friend.userId]">
+                <img src="{{ friend.photoUrl }}" alt="">
+                <span>
+                    {{ friend.userName }}
+                </span>
+            </li> -->
+            <li *ngFor="let friend of friends flex-row" (click)='goToDetailsPage(friend.userId)'>
                 <img src="{{ friend.photoUrl }}" alt="">
                 <span>
                     {{ friend.userName }}
