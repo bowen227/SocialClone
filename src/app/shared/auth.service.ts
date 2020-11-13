@@ -54,19 +54,6 @@ export class AuthService {
     })
   }
 
-  checkIfUserDocExists():boolean {
-    // CHECK IF USER EXISTS IN DB
-    const exists = this.afs.doc(`users/${this.userId}`).snapshotChanges().subscribe(x => {
-      x.payload.exists
-    })
-
-    if (exists) {
-      return true
-    } else {
-      return false
-    }
-  }
-
   createUserProfile() {
     // GET USER REF
     const userRef = this.checkIfUserDocExists()
@@ -86,6 +73,22 @@ export class AuthService {
     } else {
       console.log('User already in DB')
     }
+  }
+
+  checkIfUserDocExists():boolean {
+    const existsRef = this.afs.collection('users').doc(this.userId)
+    let exists: boolean
+    existsRef.get().subscribe(res => {
+      if (res.exists) {
+        console.log('true')
+        exists = true
+      } else {
+        console.log('false')
+        exists = false
+      }
+    })
+
+    return exists
   }
 
 }
