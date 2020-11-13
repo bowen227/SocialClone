@@ -70,7 +70,7 @@ export class NavbarComponent implements OnInit {
     let exists: boolean
 
     // GET NEWFRIEND EMAIL
-    const userEmail = window.prompt("Enter user email")
+    const userEmail: string = window.prompt("Enter user email")
 
     // CHECK IF USEREMAIL
     if (userEmail !== null) {
@@ -78,14 +78,14 @@ export class NavbarComponent implements OnInit {
       for (const key in this.friends) {
         if (Object.prototype.hasOwnProperty.call(this.friends, key)) {
           const element = this.friends[key];
-          if (element.email == userEmail) {
+          if (element.email == userEmail.toLowerCase()) {
             exists = true
           }
         }
       }
       // IF CONNECTION !EXISTS CREATE CONNECTION OBJ
       if (!exists) {
-        this.fService.searchUsers(userEmail).then(
+        this.fService.searchUsers(userEmail.toLowerCase()).then(
           data => data
         )
 
