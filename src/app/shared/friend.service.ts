@@ -44,7 +44,7 @@ export class FriendService {
 
     // IF NOT EMPTY CREATE OBJ
     if (!doc.empty) {
-      console.log('Doc not empty')
+      // console.log('Doc not empty')
       doc.docs.map(x => {
         const d = {
           userName: x.data().userName,
@@ -59,7 +59,7 @@ export class FriendService {
     }
     // ADD OBJ TO LOCALSTORAGE RETURN OBJ
     localStorage.setItem('searchedUser', JSON.stringify(details))
-    console.log('Set in localstorage')
+    // console.log('Set in localstorage')
     return details
   }
 
