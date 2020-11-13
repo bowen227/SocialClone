@@ -73,7 +73,7 @@ export class FriendsComponent implements OnInit {
       }
       // IF FRIEND !EXISTS ADD NEW FRIEND
       if (!exists) {
-        console.log('Add new friend')
+        // console.log('Add new friend')
         // CHECK TO SEE IF USEREMAIL EXISTS IN DB 'USERS'
         this.fService.searchUsers(userEmail.toLowerCase()).then(
           data => data
