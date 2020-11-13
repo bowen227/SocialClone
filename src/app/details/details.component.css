@@ -211,4 +211,9 @@ button:hover {
     .friends-container {
         display: block;
     }
+
+    .nav-container {
+        width: 350px;
+        right: 10px;
+    }
 }
