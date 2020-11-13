@@ -4,10 +4,8 @@ section {
 
 .nav-container {
     position: fixed;
-    max-width: 350px;
+    width: 100%;
     top: 10px;
-    right: 10px;
-    padding: 0px .4em;
     background-color: #14171af3;
 }
 
