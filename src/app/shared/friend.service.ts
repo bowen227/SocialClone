@@ -71,9 +71,9 @@ export class FriendService {
       friends: firebase.default.firestore.FieldValue.arrayUnion(newFriend)
     })
 
+    localStorage.removeItem('searchedUser')
+
     // ADD TOASTR ALERT IF ADD OR ERROR
-    console.log(newFriend)
-    console.log(Uid)
   }
 
 }
