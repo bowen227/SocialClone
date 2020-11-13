@@ -66,7 +66,7 @@ export class FriendsComponent implements OnInit {
       for (const key in this.friends) {
         if (Object.prototype.hasOwnProperty.call(this.friends, key)) {
           const element = this.friends[key];
-          if (element.email == userEmail) {
+          if (element.email == userEmail.toLowerCase()) {
             exists = true
           }
         }
@@ -75,7 +75,7 @@ export class FriendsComponent implements OnInit {
       if (!exists) {
         console.log('Add new friend')
         // CHECK TO SEE IF USEREMAIL EXISTS IN DB 'USERS'
-        this.fService.searchUsers(userEmail).then(
+        this.fService.searchUsers(userEmail.toLowerCase()).then(
           data => data
         )
 
