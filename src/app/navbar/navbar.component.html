@@ -18,7 +18,7 @@
     <div class="drop-down" *ngIf="showMore">
         <!-- <button *ngIf="this.auth.user != null" class="btn" (click)="signOut()">Sign Out</button> -->
         <p routerLink="/home">Home</p>
-        <p (click)="goToProfile()">{{ user.displayName }} Profile</p>
+        <p [routerLink]="['/details', userId]">{{ user.displayName }} Profile</p>
         <p class="small" (click)="toggleFriends()">Friends</p>
         <p *ngIf="this.auth.user != null" (click)="signOut()" (click)="openMenu()">Sign Out</p>
     </div>
