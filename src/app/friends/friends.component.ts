@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 })
 export class FriendsComponent implements OnInit {
   userInfo: Observable<any[]>
-  friends
+  friends = []
   user: any
   userId
 
@@ -42,12 +42,15 @@ export class FriendsComponent implements OnInit {
         if (Object.prototype.hasOwnProperty.call(x, key)) {
           const element = x[key];
           if (Object.prototype.toString.call(element).indexOf('Array')>-1) {
-            if (element.length == 0) {
-              this.friends = null
+            if (element[0] == null) {
+              console.log('nothing found')
+              this.friends = []
             } else {
+              console.log('something found')
               this.friends = element
             }
           }
+          console.log(this.friends)
         }
       }
     })

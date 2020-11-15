@@ -8,10 +8,10 @@
             <strong>Friends</strong>
         </a>
         <div class="grow">
-            <div *ngIf="friends == null">
+            <div *ngIf="friends.length == 0">
                 You haven't added any friends
             </div>
-            <ng-container *ngIf="friends != null">
+            <ng-container *ngIf="friends.length > 0">
                 <div class="friends-list-items flex-col">
                     <ul>
                         <li *ngFor="let friend of friends" [routerLink]="['/details', friend.userId]">{{ friend.userName }}</li>
