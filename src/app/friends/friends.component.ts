@@ -43,14 +43,11 @@ export class FriendsComponent implements OnInit {
           const element = x[key];
           if (Object.prototype.toString.call(element).indexOf('Array')>-1) {
             if (element[0] == null) {
-              console.log('nothing found')
               this.friends = []
             } else {
-              console.log('something found')
               this.friends = element
             }
           }
-          console.log(this.friends)
         }
       }
     })
