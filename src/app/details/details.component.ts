@@ -67,7 +67,12 @@ export class DetailsComponent implements OnInit {
             const element = this.userDetails[key];
             if (Object.prototype.toString.call(element).indexOf('Array')>-1) {
               element.forEach(item => {
-                this.friends.push(item)
+                // this.friends.push(item)
+                if (item == null) {
+                  console.log('null')
+                } else {
+                  this.friends.push(item)
+                }
               });
             }
           }

@@ -27,7 +27,7 @@
             </div>
             <div class="posts-container">
                 <h2><i class="far fa-comment-dots"></i>Posts</h2>
-                <div *ngIf="userPosts">
+                <div *ngIf="posts.length > 0">
                     <div class="card" *ngFor="let post of posts; let i = index">
                         <div id="share-div" [id]='i'>
                             <div class="card-content flex-col between">
@@ -99,7 +99,7 @@
                         </div>
                     </div>
                 </div>
-                <div *ngIf="!userPosts">
+                <div *ngIf="posts.length == 0">
                     No Posts to display
                 </div>
             </div>
