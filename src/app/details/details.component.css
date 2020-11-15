@@ -50,6 +50,11 @@ section {
     width: 250px;
 }
 
+.friends-container ul {
+    list-style: none;
+    padding: 0px;
+}
+
 .friends-container div {
     flex-grow: 1;
 }

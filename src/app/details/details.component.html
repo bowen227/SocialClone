@@ -17,9 +17,9 @@
                     Friends
                 </h2>
                 <div *ngIf="friends.length > 0">
-                    <ng-container *ngFor="let friend of friends">
-                        {{ friend.userName }}
-                    </ng-container>
+                    <ul>
+                        <li *ngFor="let friend of friends">{{ friend.userName }}</li>
+                    </ul>
                 </div>
                 <div *ngIf="friends.length == 0">
                     No friends to display
