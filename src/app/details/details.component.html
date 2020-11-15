@@ -99,6 +99,9 @@
                         </div>
                     </div>
                 </div>
+                <div class="end-posts" *ngIf="posts.length > 0">
+                    <span>This is the end of all the posts</span>
+                </div>
                 <div *ngIf="posts.length == 0">
                     No Posts to display
                 </div>
