@@ -62,6 +62,7 @@ export class PostsComponent implements OnInit {
 
     this.postService.createPost(data)
     this.bodyText = ''
+    this.image = null
     this.image = '//:0'
     this.uploadPerc = null
   }
