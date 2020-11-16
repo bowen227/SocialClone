@@ -27,6 +27,12 @@ h1 {
     font-size: 26px;
 }
 
+.form ul {
+    margin: 0px 0px 20px 0px;
+    list-style-type: circle;
+    font-size: 18px;
+}
+
 .side-container {
     display: none;
     height: 100%;
